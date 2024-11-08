@@ -47,12 +47,13 @@ import com.example.wordsnack.room.WordViewModel
 import kotlin.math.min
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.navigation.NavController
+import com.example.wordsnackfix.navigation.Screen
 
 object MainPage {
-    val popUp = AddWordPopUp
 
     @Composable
-    fun mainPageMix(viewModel: WordViewModel) {
+    fun mainPageMix(viewModel: WordViewModel, navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -60,7 +61,7 @@ object MainPage {
         ) {
             addNewWord(viewModel)
             sortedType(viewModel)
-            displayWords(viewModel)
+            displayWords(viewModel, navController)
         }
     }
 
@@ -101,6 +102,7 @@ object MainPage {
                 )
             }
             AddWordPopUp.windowUp(showPopUp, viewModel)
+
         }
     }
 
@@ -143,7 +145,7 @@ object MainPage {
     }
 
     @Composable
-    fun displayWords(viewModel: WordViewModel) {
+    fun displayWords(viewModel: WordViewModel, navController: NavController) {
         val words by viewModel.words.collectAsState(initial = emptyList())
 
         Column(
@@ -161,6 +163,16 @@ object MainPage {
                         .height(IntrinsicSize.Min)
                         .background(Color.White)
                         .padding(10.dp)
+                        .clickable {
+                            navController.navigate(
+                                Screen.DetailScreen.createRoute(
+                                    word.word,
+                                    word.partOfSpeech,
+                                    word.transcription,
+                                    word.translation
+                                )
+                            )
+                        }
                 ) {
                     Text(
                         text = word.word,
