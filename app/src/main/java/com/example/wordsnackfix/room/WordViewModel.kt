@@ -18,7 +18,7 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
     init {
         // Initial load of words from the database
         viewModelScope.launch {
-            _words.value = newWordDao.getAllWords()
+            _words.value = getAllWords()
         }
     }
 
@@ -28,7 +28,7 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             newWordDao.insert(newWord)
             // Refresh the words list after insertion
-            _words.value = newWordDao.getAllWords()
+            _words.value = getAllWords()
         }
     }
 
@@ -45,10 +45,10 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
 
     private suspend fun getAllWords(): List<WordEntity> {
         return when (_sortOption.value) {
-            "newest" -> newWordDao.getAllWords().sortedByDescending { it.timestamp }
-            "oldest" -> newWordDao.getAllWords().sortedBy { it.timestamp }
-            "alphabetical" -> newWordDao.getAllWords().sortedBy { it.word }
-            else -> newWordDao.getAllWords()
+            "newest" -> newWordDao.getWordsNewest()
+            "oldest" -> newWordDao.getWordsOldest()
+            "alphabetical" -> newWordDao.getWordsAlphabetical()
+            else -> newWordDao.getWordsNewest()
         }
     }
 
@@ -56,7 +56,7 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             newWordDao.deleteWord(id)
             // Refresh the words list after insertion
-            _words.value = newWordDao.getAllWords()
+            _words.value = getAllWords()
         }
     }
 }
