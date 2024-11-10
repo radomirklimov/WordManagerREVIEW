@@ -153,6 +153,7 @@ object MainPage {
                 .fillMaxSize()
                 .background(Color.Gray)
                 .verticalScroll(rememberScrollState())
+                .padding(bottom = 50.dp)
         ) {
             for (word in words) {
                 Row(
