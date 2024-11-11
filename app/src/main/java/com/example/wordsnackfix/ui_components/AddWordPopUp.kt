@@ -45,6 +45,7 @@ object AddWordPopUp {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     var word by remember { mutableStateOf("") }
+                    var isError by remember { mutableStateOf(false) }
 
                     TextField(
                         value = word,

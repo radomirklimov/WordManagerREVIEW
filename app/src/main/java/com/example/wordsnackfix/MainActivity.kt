@@ -6,7 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import com.example.wordsnack.room.WordViewModel
-import com.example.wordsnack.ui_components.MainPage
 import com.example.wordsnackfix.navigation.Navigation
 
 class MainActivity : ComponentActivity() {
