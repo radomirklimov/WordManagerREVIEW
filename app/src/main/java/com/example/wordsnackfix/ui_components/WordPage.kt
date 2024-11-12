@@ -22,6 +22,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +36,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.wordsnackfix.R
+import com.example.wordsnackfix.generate_text.OpenAiApiService
+import com.example.wordsnackfix.generate_text.RetrofitInstance
+import com.example.wordsnackfix.generate_text.TextGenerationRequest
+import com.example.wordsnackfix.generate_text.generateText
 
 object WordPage {
     @Composable
@@ -49,7 +54,25 @@ object WordPage {
         // Rotate from 0 to 180 or vice versa based on flip state
         val rotation by animateFloatAsState(targetValue = if (isFlipped) 1f else 0f)
 
-        var generatedText = "generateText(word)"
+        var generatedText by remember { mutableStateOf("Loading...") }
+        LaunchedEffect(word) {
+            if (word.isNotEmpty()) {
+                try {
+                    val response = RetrofitInstance.api.generateText(TextGenerationRequest(word))
+                    if (response.isSuccessful) {
+                        // Update generatedText with the result from the API
+                        generatedText = response.body()?.generatedText ?: "Failed to generate text."
+                    } else {
+                        generatedText = "Error: ${response.message()}"
+                    }
+                } catch (e: Exception) {
+                    generatedText = "Network error: ${e.message}"
+                }
+            } else {
+                generatedText = "Please enter a word."
+            }
+        }
+
 
         Box(
             modifier = Modifier
@@ -115,7 +138,6 @@ object WordPage {
             }
 
             Text(
-
                 text = generatedText,
                 modifier = Modifier
                     .wrapContentSize()
