@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -45,7 +46,6 @@ object AddWordPopUp {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     var word by remember { mutableStateOf("") }
-                    var isError by remember { mutableStateOf(false) }
 
                     TextField(
                         value = word,
@@ -55,8 +55,9 @@ object AddWordPopUp {
                         modifier = Modifier
                             .padding(top = 30.dp)
                             .width(280.dp)
-                            .height(56.dp)
+                            .height(66.dp)
                             .clip(RoundedCornerShape(40.dp))
+                            .background(Color.Yellow),
                     )
                     Text(
                         text = "verb",
@@ -69,7 +70,7 @@ object AddWordPopUp {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 26.dp, start = 16.dp, end = 16.dp),
+                            .padding(top = 16.dp, start = 16.dp, end = 16.dp),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Button(
@@ -90,7 +91,8 @@ object AddWordPopUp {
                         }
 
                         Button(
-                            onClick = { viewModel.insertNewWord(word) ; showPopUp.value = false },
+                            onClick = { viewModel.insertNewWord(word); showPopUp.value = false },
+                            enabled = word.isNotBlank(),
                             shape = RoundedCornerShape(4.dp),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = Color.DarkGray
