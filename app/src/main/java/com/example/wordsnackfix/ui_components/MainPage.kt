@@ -164,16 +164,16 @@ object MainPage {
                         .height(IntrinsicSize.Min)
                         .background(Color.White)
                         .padding(10.dp)
-                        .clickable {
-                            navController.navigate(
-                                Screen.DetailScreen.createRoute(
-                                    word.word,
-                                    word.partOfSpeech,
-                                    word.transcription,
-                                    word.translation
-                                )
-                            )
-                        }
+//                        .clickable {
+//                            navController.navigate(
+//                                Screen.DetailScreen.createRoute(
+//                                    word.word,
+//                                    word.partOfSpeech,
+//                                    word.transcription,
+//                                    word.translation
+//                                )
+//                            )
+//                        }
                 ) {
                     Text(
                         text = word.word,

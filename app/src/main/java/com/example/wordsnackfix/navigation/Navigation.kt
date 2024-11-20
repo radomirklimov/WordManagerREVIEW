@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.wordsnack.room.WordViewModel
 import com.example.wordsnack.ui_components.MainPage
-import com.example.wordsnackfix.ui_components.WordPage
+
 
 sealed class Screen(val route: String) {
     object MainScreen : Screen("main_screen")
@@ -59,11 +59,11 @@ fun DetailScreen(
     transcription: String,
     translation: String
 ) {
-    WordPage.TheWord(
-        navController,
-        word,
-        partOfSpeech,
-        transcription,
-        translation
-    )
+//    WordPage.TheWord(
+//        navController,
+//        word,
+//        partOfSpeech,
+//        transcription,
+//        translation
+//    )
 }
