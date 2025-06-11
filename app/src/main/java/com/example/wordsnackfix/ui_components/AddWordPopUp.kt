@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -58,14 +57,6 @@ object AddWordPopUp {
                             .height(66.dp)
                             .clip(RoundedCornerShape(40.dp))
                             .background(Color.Yellow),
-                    )
-                    Text(
-                        text = "verb",
-                        modifier = Modifier
-                            .clip(RoundedCornerShape(0.dp, 0.dp, 8.dp, 8.dp))
-                            .background(Color.Yellow)
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
-                        color = Color.DarkGray
                     )
                     Row(
                         modifier = Modifier
